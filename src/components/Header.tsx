@@ -43,7 +43,7 @@ export function Header() {
           type="button"
           aria-expanded={open}
           aria-controls="mobile-nav"
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((value) => !value)}
         >
           <span className="burger" aria-hidden="true">
@@ -59,17 +59,17 @@ export function Header() {
 
         <form className="search" role="search" onSubmit={onSearch}>
           <label className="sr-only" htmlFor="site-search">
-            Buscar productos
+            Search products
           </label>
           <input
             id="site-search"
             type="search"
-            placeholder="Buscar batería iPhone 11, LCD Galaxy…"
+            placeholder="Search iPhone 11 battery, Galaxy LCD…"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
           <button className="button" type="submit">
-            Buscar
+            Search
           </button>
         </form>
 
@@ -86,7 +86,7 @@ export function Header() {
             ))}
           </nav>
           <Link className="cart-pill" to="/cart" onClick={closeMenu}>
-            Cesta {count}
+            Cart {count}
           </Link>
         </div>
       </div>
@@ -111,10 +111,10 @@ export function Header() {
               </NavLink>
             ))}
             <Link to="/cart" onClick={closeMenu}>
-              Cesta {count}
+              Cart {count}
             </Link>
           </nav>
-          <p className="mobile-label">Categorías</p>
+          <p className="mobile-label">Categories</p>
           <div className="mobile-cats">
             {categories.map((category) => (
               <Link

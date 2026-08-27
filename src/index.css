@@ -588,7 +588,10 @@ code {
 }
 
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+.contact-form select,
+.admin-form input,
+.admin-form select {
   width: 100%;
   border: 1px solid var(--line);
   background: var(--surface);
@@ -603,6 +606,43 @@ code {
   background: var(--surface);
   padding: 1.5rem;
   border-radius: 12px;
+}
+
+.admin-login {
+  max-width: 28rem;
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.admin-form label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+}
+
+.admin-wide {
+  grid-column: 1 / -1;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 0.4rem;
 }
 
 .chip {
@@ -833,7 +873,8 @@ code {
   .contact-grid,
   .footer-grid,
   .cart-layout,
-  .service-strip {
+  .service-strip,
+  .admin-form {
     grid-template-columns: 1fr;
   }
 }

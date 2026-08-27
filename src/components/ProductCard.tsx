@@ -13,8 +13,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <article className="product-card">
-      <span className="part-tag">{product.category === 'Batteries' ? 'Baterías' : 'LCD'}</span>
-      {saved > 0 ? <span className="deal-tag">Oferta</span> : null}
+      <span className="part-tag">{product.category === 'Batteries' ? 'Batteries' : 'LCD'}</span>
+      {saved > 0 ? <span className="deal-tag">Deal</span> : null}
 
       <Link className="product-media" to="/shop">
         <img src={product.image} alt={product.name} />
@@ -28,18 +28,18 @@ export function ProductCard({ product }: ProductCardProps) {
         <p className="product-spec">{productDetail(product)}</p>
         <p className="product-price">
           <strong>{formatPrice(product.price)}</strong>
-          {saved > 0 ? <span>Ahorras {formatPrice(saved)}</span> : null}
+          {saved > 0 ? <span>Save {formatPrice(saved)}</span> : null}
         </p>
       </div>
       {quantity === 0 ? (
         <button className="button button-block" type="button" onClick={() => add(product)}>
-          Añadir
+          Add to cart
         </button>
       ) : (
         <div className="card-qty">
           <button
             type="button"
-            aria-label={`Menos ${product.name}`}
+            aria-label={`Fewer ${product.name}`}
             onClick={() => setQuantity(product.id, quantity - 1)}
           >
             −
@@ -47,7 +47,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <span>{quantity}</span>
           <button
             type="button"
-            aria-label={`Más ${product.name}`}
+            aria-label={`More ${product.name}`}
             onClick={() => add(product)}
           >
             +

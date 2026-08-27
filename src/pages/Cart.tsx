@@ -9,11 +9,11 @@ export function Cart() {
     return (
       <section className="page">
         <div className="shell cart-empty">
-          <p className="eyebrow">Cesta</p>
-          <h1>Tu cesta está vacía.</h1>
-          <p className="lede">Añade una batería o un LCD y vuelve aquí.</p>
+          <p className="eyebrow">Cart</p>
+          <h1>Your cart is empty.</h1>
+          <p className="lede">Add a battery or LCD from the shop, then come back here.</p>
           <Link className="button" to="/shop">
-            Seguir comprando
+            Continue shopping
           </Link>
         </div>
       </section>
@@ -24,9 +24,9 @@ export function Cart() {
     <section className="page">
       <div className="shell cart-layout">
         <div>
-          <p className="eyebrow">Cesta</p>
+          <p className="eyebrow">Cart</p>
           <h1>
-            {count} artículo{count === 1 ? '' : 's'}
+            {count} item{count === 1 ? '' : 's'}
           </h1>
 
           <ul className="cart-lines">
@@ -43,7 +43,7 @@ export function Cart() {
                     <button
                       type="button"
                       className="qty-btn"
-                      aria-label={`Menos ${line.product.name}`}
+                      aria-label={`Fewer ${line.product.name}`}
                       onClick={() => setQuantity(line.product.id, line.quantity - 1)}
                     >
                       −
@@ -52,13 +52,13 @@ export function Cart() {
                     <button
                       type="button"
                       className="qty-btn"
-                      aria-label={`Más ${line.product.name}`}
+                      aria-label={`More ${line.product.name}`}
                       onClick={() => setQuantity(line.product.id, line.quantity + 1)}
                     >
                       +
                     </button>
                     <button type="button" className="text-btn" onClick={() => remove(line.product.id)}>
-                      Quitar
+                      Remove
                     </button>
                   </div>
                 </div>
@@ -68,20 +68,20 @@ export function Cart() {
         </div>
 
         <aside className="cart-summary">
-          <h2>Resumen</h2>
+          <h2>Order summary</h2>
           <p className="cart-total">
             <span>Total</span>
             <strong>{formatPrice(total)}</strong>
           </p>
-          <p className="muted">El pago aún no está conectado — esta página solo guarda la cesta.</p>
+          <p className="muted">Checkout is not connected yet — this page only holds the basket.</p>
           <button className="button button-block" type="button" disabled>
-            Pago próximamente
+            Checkout coming soon
           </button>
           <Link className="button button-ghost button-block" to="/shop">
-            Seguir comprando
+            Continue shopping
           </Link>
           <button className="text-btn" type="button" onClick={clear}>
-            Vaciar cesta
+            Empty cart
           </button>
         </aside>
       </div>

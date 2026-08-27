@@ -26,11 +26,11 @@ export function Contact() {
     <section className="page">
       <div className="shell contact-grid">
         <div>
-          <p className="eyebrow">Ayuda</p>
-          <h1>¿Necesitas una batería o un LCD?</h1>
+          <p className="eyebrow">Help</p>
+          <h1>Need a battery or LCD?</h1>
           <p className="lede">
-            Presupuestos, devoluciones y WhatsApp empiezan aquí. El formulario
-            aún no envía correo.
+            Quotes, returns, and WhatsApp questions can start here. The form does
+            not send email yet.
           </p>
           <p>
             <a href={`mailto:${site.email}`}>{site.email}</a>
@@ -40,13 +40,13 @@ export function Contact() {
 
         {sent ? (
           <div className="form-note" role="status">
-            <h2>Gracias — esto es un placeholder.</h2>
-            <p>Conecta este formulario a email o una API cuando esté listo.</p>
+            <h2>Thanks — this is a placeholder.</h2>
+            <p>Connect this form to email or an API when you are ready.</p>
           </div>
         ) : (
           <form className="contact-form" onSubmit={handleSubmit}>
             <label>
-              Nombre
+              Name
               <input
                 name="name"
                 value={form.name}
@@ -65,7 +65,7 @@ export function Contact() {
               />
             </label>
             <label>
-              Mensaje
+              Message
               <textarea
                 name="message"
                 rows={6}
@@ -77,7 +77,7 @@ export function Contact() {
               />
             </label>
             <button className="button" type="submit">
-              Enviar
+              Send
             </button>
           </form>
         )}

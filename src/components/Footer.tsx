@@ -8,10 +8,11 @@ export function Footer() {
         <div>
           <p className="wordmark">{site.name}</p>
           <p className="muted">{site.tagline} · {site.location}</p>
+          <p className="muted">{site.url.replace('https://', '')}</p>
         </div>
 
         <nav aria-label="Footer">
-          <Link to="/">Inicio</Link>
+          <Link to="/">Home</Link>
           {navItems.map((item) => (
             <Link key={item.path} to={item.path}>
               {item.label}
@@ -21,7 +22,7 @@ export function Footer() {
 
         <div className="footer-contact">
           <a href={`mailto:${site.email}`}>{site.email}</a>
-          <p className="muted">Baterías y LCD para reparación de móviles. Más recambios más adelante.</p>
+          <p className="muted">Batteries and LCD for phone repair. More parts later.</p>
         </div>
       </div>
     </footer>

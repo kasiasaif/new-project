@@ -1,11 +1,13 @@
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ProductCard } from '../components/ProductCard'
-import { categories, categoryLabel, products, type Category } from '../data/site'
+import { categories, categoryLabel, type Category } from '../data/site'
+import { useProducts } from '../lib/products'
 
 const filters: Array<'All' | Category> = ['All', ...categories]
 
 export function Shop() {
+  const { products, status } = useProducts()
   const [params, setParams] = useSearchParams()
   const query = params.get('q') ?? ''
   const categoryParam = params.get('category')
@@ -23,7 +25,7 @@ export function Shop() {
       const matchesQuery = !needle || haystack.includes(needle)
       return matchesCategory && matchesQuery
     })
-  }, [active, query])
+  }, [active, products, query])
 
   function setCategory(next: 'All' | Category) {
     const nextParams = new URLSearchParams(params)
@@ -35,13 +37,13 @@ export function Shop() {
   return (
     <section className="page">
       <div className="shell">
-        <p className="eyebrow">Tienda</p>
-        <h1>{query ? `Resultados para “${query}”` : 'Baterías y LCD'}</h1>
+        <p className="eyebrow">Shop</p>
+        <h1>{query ? `Results for “${query}”` : 'Batteries and LCD'}</h1>
         <p className="lede">
-          Dos categorías por ahora. Busca un modelo, por ejemplo iPhone 11 o Galaxy A15.
+          Two categories for now. Search a model such as iPhone 11 or Galaxy A15.
         </p>
 
-        <div className="filters" role="tablist" aria-label="Tipo de recambio">
+        <div className="filters" role="tablist" aria-label="Part type">
           {filters.map((item) => (
             <button
               key={item}
@@ -56,15 +58,18 @@ export function Shop() {
           ))}
         </div>
 
-        {visible.length === 0 ? (
-          <p className="muted">Ningún recambio coincide con esa búsqueda.</p>
-        ) : (
+        {status === 'loading' ? <p className="muted">Loading parts…</p> : null}
+        {status === 'error' ? <p className="muted">Could not load the catalog.</p> : null}
+        {status === 'ready' && visible.length === 0 ? (
+          <p className="muted">No parts match that search.</p>
+        ) : null}
+        {status === 'ready' && visible.length > 0 ? (
           <div className="product-grid">
             {visible.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   )

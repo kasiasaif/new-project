@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { AdminMoved } from './pages/AdminMoved'
 import { About } from './pages/About'
 import { Cart } from './pages/Cart'
 import { Contact } from './pages/Contact'
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/work" element={<Navigate to="/shop" replace />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<AdminMoved />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

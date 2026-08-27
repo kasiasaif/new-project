@@ -1,25 +1,28 @@
 import { Link } from 'react-router-dom'
 import { ProductCard } from '../components/ProductCard'
 import { TrustBar } from '../components/TrustBar'
-import { categories, categoryLabel, products, services, site } from '../data/site'
+import { categories, categoryLabel, services, site } from '../data/site'
+import { useProducts } from '../lib/products'
 
 export function Home() {
+  const { products, status } = useProducts()
+
   return (
     <>
       <section className="hero">
         <div className="shell">
           <p className="eyebrow">{site.tagline}</p>
-          <h1>Baterías y pantallas LCD para reparación de móviles.</h1>
+          <h1>Batteries and LCD screens for phone repair.</h1>
           <p className="lede">
-            tescgsm es un mostrador de recambios en España. De momento solo
-            baterías y LCD — el resto de piezas puede llegar después.
+            tescgsm is a parts counter in Spain. For now we only stock batteries
+            and LCD — other parts can come later.
           </p>
           <div className="hero-actions">
             <Link className="button" to="/shop?category=LCD">
-              Ver LCD
+              Shop LCD
             </Link>
             <Link className="button button-ghost" to="/shop?category=Batteries">
-              Ver baterías
+              Shop batteries
             </Link>
           </div>
         </div>
@@ -41,7 +44,7 @@ export function Home() {
       </section>
 
       <section className="shell section">
-        <h2>Comprar por tipo</h2>
+        <h2>Shop by part</h2>
         <div className="category-tiles">
           {categories.map((category) => (
             <Link key={category} className="category-tile" to={`/shop?category=${encodeURIComponent(category)}`}>
@@ -53,14 +56,18 @@ export function Home() {
 
       <section className="shell section">
         <div className="section-head">
-          <h2>Los más vendidos</h2>
-          <Link to="/shop">Ver todo</Link>
+          <h2>Best sellers</h2>
+          <Link to="/shop">See all</Link>
         </div>
-        <div className="product-grid">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {status === 'loading' ? <p className="muted">Loading parts…</p> : null}
+        {status === 'error' ? <p className="muted">Could not load the catalog.</p> : null}
+        {status === 'ready' ? (
+          <div className="product-grid">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : null}
       </section>
     </>
   )

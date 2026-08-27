@@ -5,10 +5,10 @@ export function NotFound() {
     <section className="page">
       <div className="shell">
         <p className="eyebrow">404</p>
-        <h1>Página no encontrada.</h1>
-        <p className="lede">Esa ruta aún no forma parte de la tienda.</p>
+        <h1>Page not found.</h1>
+        <p className="lede">That route is not part of the shop yet.</p>
         <Link className="button" to="/">
-          Volver al inicio
+          Back home
         </Link>
       </div>
     </section>
