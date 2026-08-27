@@ -26,11 +26,11 @@ export function Contact() {
     <section className="page">
       <div className="shell contact-grid">
         <div>
-          <p className="eyebrow">Hello</p>
-          <h1>Contact</h1>
+          <p className="eyebrow">Ayuda</p>
+          <h1>¿Necesitas una batería o un LCD?</h1>
           <p className="lede">
-            The form does not send mail yet. It only demonstrates the layout and
-            TypeScript state. Wire it to an API or email service later.
+            Presupuestos, devoluciones y WhatsApp empiezan aquí. El formulario
+            aún no envía correo.
           </p>
           <p>
             <a href={`mailto:${site.email}`}>{site.email}</a>
@@ -40,16 +40,13 @@ export function Contact() {
 
         {sent ? (
           <div className="form-note" role="status">
-            <h2>Thanks — this is a placeholder.</h2>
-            <p>
-              In a later pass, this message can come from a real submission
-              endpoint.
-            </p>
+            <h2>Gracias — esto es un placeholder.</h2>
+            <p>Conecta este formulario a email o una API cuando esté listo.</p>
           </div>
         ) : (
           <form className="contact-form" onSubmit={handleSubmit}>
             <label>
-              Name
+              Nombre
               <input
                 name="name"
                 value={form.name}
@@ -68,7 +65,7 @@ export function Contact() {
               />
             </label>
             <label>
-              Message
+              Mensaje
               <textarea
                 name="message"
                 rows={6}
@@ -80,7 +77,7 @@ export function Contact() {
               />
             </label>
             <button className="button" type="submit">
-              Send
+              Enviar
             </button>
           </form>
         )}

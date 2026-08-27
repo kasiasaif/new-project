@@ -1,45 +1,59 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import {
-  formatCount,
-  formatPrice,
-  type Product,
-} from '../data/site'
+import { formatPrice, productDetail, type Product } from '../data/site'
 
 type ProductCardProps = {
   product: Product
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { add } = useCart()
-  const saved = product.previousPrice - product.price
+  const { add, setQuantity, lines } = useCart()
+  const quantity = lines.find((line) => line.product.id === product.id)?.quantity ?? 0
+  const saved = (product.previousPrice ?? product.price) - product.price
 
   return (
     <article className="product-card">
-      {saved > 0 ? <span className="deal-tag">Price drop</span> : null}
+      <span className="part-tag">{product.category === 'Batteries' ? 'Baterías' : 'LCD'}</span>
+      {saved > 0 ? <span className="deal-tag">Oferta</span> : null}
 
-      <Link className="product-media" to="/shop" style={{ background: product.accent }} aria-label={product.name}>
-        <span className="device-shape" />
+      <Link className="product-media" to="/shop">
+        <img src={product.image} alt={product.name} />
       </Link>
 
       <div className="product-body">
+        <p className="product-model">{product.brand} · {product.model}</p>
         <h3>
           <Link to="/shop">{product.name}</Link>
         </h3>
-        <p className="product-spec">
-          {product.grade} · {product.color} · {product.spec}
-        </p>
-        <p className="product-rating">
-          {product.rating.toFixed(1)}/5 ({formatCount(product.reviewCount)})
-        </p>
+        <p className="product-spec">{productDetail(product)}</p>
         <p className="product-price">
           <strong>{formatPrice(product.price)}</strong>
-          {saved > 0 ? <span>Save {formatPrice(saved)}</span> : null}
+          {saved > 0 ? <span>Ahorras {formatPrice(saved)}</span> : null}
         </p>
-        <button className="button button-block" type="button" onClick={add}>
-          Add to cart
-        </button>
       </div>
+      {quantity === 0 ? (
+        <button className="button button-block" type="button" onClick={() => add(product)}>
+          Añadir
+        </button>
+      ) : (
+        <div className="card-qty">
+          <button
+            type="button"
+            aria-label={`Menos ${product.name}`}
+            onClick={() => setQuantity(product.id, quantity - 1)}
+          >
+            −
+          </button>
+          <span>{quantity}</span>
+          <button
+            type="button"
+            aria-label={`Más ${product.name}`}
+            onClick={() => add(product)}
+          >
+            +
+          </button>
+        </div>
+      )}
     </article>
   )
 }

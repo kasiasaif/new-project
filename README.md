@@ -1,21 +1,14 @@
-# Harbor
+# tescgsm
 
-TypeScript website skeleton — Vite, React, and React Router.
+Tienda de recambios en España — baterías y pantallas LCD. Vite, React y TypeScript.
 
-## Run locally
+## En local
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the URL Vite prints (usually `http://localhost:5173`).
+Abre `http://localhost:5173`.
 
-## Pages
-
-- `/` Home
-- `/work` Project index with category filters
-- `/about` Studio story, values, team placeholders
-- `/contact` Front-end form (not connected to email yet)
-
-Edit copy and sample data in `src/data/site.ts`.
+Edita copys y productos en `src/data/site.ts`.

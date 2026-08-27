@@ -1,175 +1,188 @@
-export type Category = 'Phones' | 'Laptops' | 'Tablets' | 'Audio' | 'Gaming'
+export type Category = 'Batteries' | 'LCD'
 
-export type Grade = 'Premium' | 'Excellent' | 'Good' | 'Fair'
+export type Brand = 'Apple' | 'Samsung'
 
 export type Product = {
   id: string
   name: string
   category: Category
-  grade: Grade
-  color: string
+  brand: Brand
+  model: string
   spec: string
   price: number
-  previousPrice: number
-  rating: number
-  reviewCount: number
-  accent: string
+  previousPrice?: number
+  image: string
+}
+
+function asset(path: string): string {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 }
 
 export const site = {
-  name: 'Rewired',
-  tagline: 'Refurbished tech',
-  email: 'hello@rewired.shop',
-  location: 'United Kingdom',
+  name: 'tescgsm',
+  tagline: 'Baterías y pantallas LCD para móviles',
+  email: 'hola@tescgsm.es',
+  location: 'España',
+  whatsapp: '',
 } as const
 
 export const navItems = [
-  { label: 'Shop', path: '/shop' },
-  { label: 'About', path: '/about' },
-  { label: 'Help', path: '/contact' },
+  { label: 'Tienda', path: '/shop' },
+  { label: 'Nosotros', path: '/about' },
+  { label: 'Ayuda', path: '/contact' },
 ]
 
-export const categories: Category[] = ['Phones', 'Laptops', 'Tablets', 'Audio', 'Gaming']
+export const categories: Category[] = ['Batteries', 'LCD']
+
+export const categoryLabel: Record<Category | 'All', string> = {
+  All: 'Todo',
+  Batteries: 'Baterías',
+  LCD: 'LCD',
+}
 
 export const promises = [
-  { title: '1-year warranty', body: 'Every device is covered for 12 months.' },
-  { title: '30-day returns', body: 'Send it back if it is not right.' },
-  { title: 'Tested and graded', body: 'Premium, Excellent, Good, or Fair — no surprises.' },
-  { title: 'Free delivery', body: 'On orders over £50, across the UK.' },
+  { title: 'Solo baterías y LCD', body: 'Empezamos por los dos recambios que más pide un taller.' },
+  { title: 'Por modelo', body: 'Cada ficha va ligada a un modelo concreto, no a un pack genérico.' },
+  { title: 'Para reparación', body: 'Pensado como mostrador de recambios, no como tienda de móviles nuevos.' },
+  { title: 'Consulta por WhatsApp', body: 'Stock y compatibilidad pasan por Ayuda hasta conectar el chat.' },
+]
+
+export const services = [
+  { title: 'Pedir presupuesto', body: 'Indica el modelo. Confirmamos stock de batería o LCD.', href: '/contact' },
+  { title: 'Devoluciones', body: 'Las piezas defectuosas se pueden devolver. El proceso es un placeholder.', href: '/contact' },
+  { title: 'Seguimiento', body: 'El tracking irá aquí cuando los pedidos estén en marcha.', href: '/contact' },
+  { title: 'WhatsApp', body: 'Consultas rápidas de baterías y pantallas.', href: '/contact' },
 ]
 
 export const faqs = [
   {
-    question: 'Can I trade in my old phone?',
-    answer:
-      'Not yet in this skeleton. Later this can connect to a trade-in flow, the way a marketplace like Back Market does.',
+    question: '¿Vendéis móviles enteros?',
+    answer: 'De momento no. tescgsm solo vende baterías y pantallas LCD de recambio.',
   },
   {
-    question: 'Are these new devices?',
+    question: '¿Son piezas originales?',
     answer:
-      'No. They are refurbished: professionally checked, graded, and sold for less than new.',
+      'Estas fichas son de ejemplo para recambios compatibles. Cambia nombres, calidades y proveedores en src/data/site.ts cuando tengas stock real.',
   },
   {
-    question: 'Does the form on Help actually send?',
-    answer: 'No. It is front-end only until you wire an email or API service.',
+    question: '¿Puedo pedir presupuesto de un modelo que no está listado?',
+    answer: 'Sí — usa el formulario de Ayuda. Más adelante puede ir a WhatsApp, como en tiendas de recambios.',
   },
 ]
 
 export const products: Product[] = [
   {
-    id: 'iphone-12',
-    name: 'iPhone 12',
-    category: 'Phones',
-    grade: 'Excellent',
-    color: 'Black',
-    spec: '128 GB',
-    price: 178,
-    previousPrice: 189,
-    rating: 4.3,
-    reviewCount: 98523,
-    accent: '#1c1c1e',
+    id: 'bat-iphone-11',
+    name: 'Batería para iPhone 11',
+    category: 'Batteries',
+    brand: 'Apple',
+    model: 'iPhone 11',
+    spec: '3520 mAh · capacidad aumentada',
+    price: 18,
+    previousPrice: 22,
+    image: asset('images/battery-apple.png'),
   },
   {
-    id: 'iphone-13-pro',
-    name: 'iPhone 13 Pro',
-    category: 'Phones',
-    grade: 'Premium',
-    color: 'Graphite',
-    spec: '128 GB',
-    price: 434,
-    previousPrice: 469,
-    rating: 4.4,
-    reviewCount: 32888,
-    accent: '#4a4a4c',
+    id: 'bat-iphone-12',
+    name: 'Batería para iPhone 12',
+    category: 'Batteries',
+    brand: 'Apple',
+    model: 'iPhone 12',
+    spec: '2815 mAh',
+    price: 19,
+    image: asset('images/battery-apple.png'),
   },
   {
-    id: 'pixel-8a',
-    name: 'Pixel 8a',
-    category: 'Phones',
-    grade: 'Premium',
-    color: 'Black',
-    spec: '128 GB',
-    price: 210,
-    previousPrice: 226,
-    rating: 4.5,
-    reviewCount: 851,
-    accent: '#2b2b2b',
+    id: 'bat-iphone-13',
+    name: 'Batería para iPhone 13',
+    category: 'Batteries',
+    brand: 'Apple',
+    model: 'iPhone 13',
+    spec: '3227 mAh',
+    price: 21,
+    image: asset('images/battery-apple.png'),
   },
   {
-    id: 'macbook-air',
-    name: 'MacBook Air M1',
-    category: 'Laptops',
-    grade: 'Fair',
-    color: 'Silver',
-    spec: '13" · 8 GB · 128 GB',
-    price: 349,
-    previousPrice: 375,
-    rating: 4.4,
-    reviewCount: 7423,
-    accent: '#c8c8c8',
+    id: 'bat-a15',
+    name: 'Batería para Galaxy A15 5G',
+    category: 'Batteries',
+    brand: 'Samsung',
+    model: 'Galaxy A15 5G (A156B)',
+    spec: '5000 mAh',
+    price: 14,
+    image: asset('images/battery-samsung.png'),
   },
   {
-    id: 'ipad',
-    name: 'iPad 10th gen',
-    category: 'Tablets',
-    grade: 'Good',
-    color: 'Blue',
-    spec: '64 GB · Wi-Fi',
-    price: 259,
-    previousPrice: 299,
-    rating: 4.5,
-    reviewCount: 4120,
-    accent: '#6aa6d6',
+    id: 'lcd-iphone-11',
+    name: 'Pantalla LCD para iPhone 11',
+    category: 'LCD',
+    brand: 'Apple',
+    model: 'iPhone 11',
+    spec: 'In-cell FHD · negro · IC cambiable',
+    price: 29,
+    previousPrice: 34,
+    image: asset('images/lcd-apple.png'),
   },
   {
-    id: 'airpods',
-    name: 'AirPods Pro 2',
-    category: 'Audio',
-    grade: 'Excellent',
-    color: 'White',
-    spec: 'USB-C case',
-    price: 149,
-    previousPrice: 179,
-    rating: 4.6,
-    reviewCount: 22110,
-    accent: '#ececec',
+    id: 'lcd-iphone-12',
+    name: 'Pantalla LCD para iPhone 12',
+    category: 'LCD',
+    brand: 'Apple',
+    model: 'iPhone 12',
+    spec: 'In-cell FHD · negro',
+    price: 38,
+    image: asset('images/lcd-apple.png'),
   },
   {
-    id: 'switch',
-    name: 'Nintendo Switch OLED',
-    category: 'Gaming',
-    grade: 'Good',
-    color: 'White',
-    spec: '64 GB',
-    price: 199,
-    previousPrice: 229,
-    rating: 4.7,
-    reviewCount: 8904,
-    accent: '#e8e8e8',
+    id: 'lcd-iphone-13',
+    name: 'Pantalla LCD para iPhone 13',
+    category: 'LCD',
+    brand: 'Apple',
+    model: 'iPhone 13',
+    spec: 'In-cell FHD · negro',
+    price: 42,
+    image: asset('images/lcd-apple.png'),
   },
   {
-    id: 'galaxy-s22',
-    name: 'Galaxy S22',
-    category: 'Phones',
-    grade: 'Fair',
-    color: 'Green',
-    spec: '256 GB',
-    price: 182,
-    previousPrice: 199,
-    rating: 4.4,
-    reviewCount: 14741,
-    accent: '#3d6b4f',
+    id: 'lcd-a15',
+    name: 'Pantalla LCD para Galaxy A15 5G',
+    category: 'LCD',
+    brand: 'Samsung',
+    model: 'Galaxy A15 5G (A156B)',
+    spec: 'Service pack · negro',
+    price: 36,
+    image: asset('images/lcd-samsung.png'),
+  },
+  {
+    id: 'lcd-a14',
+    name: 'Pantalla LCD para Galaxy A14 4G',
+    category: 'LCD',
+    brand: 'Samsung',
+    model: 'Galaxy A14 4G (A145F)',
+    spec: 'Service pack · negro',
+    price: 27,
+    image: asset('images/lcd-samsung.png'),
+  },
+  {
+    id: 'bat-s22',
+    name: 'Batería para Galaxy S22',
+    category: 'Batteries',
+    brand: 'Samsung',
+    model: 'Galaxy S22',
+    spec: '3700 mAh',
+    price: 17,
+    image: asset('images/battery-samsung.png'),
   },
 ]
 
 export function formatPrice(value: number): string {
-  return new Intl.NumberFormat('en-GB', {
+  return new Intl.NumberFormat('es-ES', {
     style: 'currency',
-    currency: 'GBP',
+    currency: 'EUR',
     maximumFractionDigits: 0,
   }).format(value)
 }
 
-export function formatCount(value: number): string {
-  return new Intl.NumberFormat('en-GB').format(value)
+export function productDetail(product: Product): string {
+  return `${product.model} · ${product.spec}`
 }

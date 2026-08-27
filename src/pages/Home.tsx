@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { projects, site } from '../data/site'
-
-const featured = projects.slice(0, 3)
+import { ProductCard } from '../components/ProductCard'
+import { TrustBar } from '../components/TrustBar'
+import { categories, categoryLabel, products, services, site } from '../data/site'
 
 export function Home() {
   return (
@@ -9,53 +9,57 @@ export function Home() {
       <section className="hero">
         <div className="shell">
           <p className="eyebrow">{site.tagline}</p>
-          <h1>A studio for considered work.</h1>
+          <h1>Baterías y pantallas LCD para reparación de móviles.</h1>
           <p className="lede">
-            Harbor is a placeholder brand for this site skeleton. Swap the name,
-            copy, and projects when you know what the real studio is about.
+            tescgsm es un mostrador de recambios en España. De momento solo
+            baterías y LCD — el resto de piezas puede llegar después.
           </p>
           <div className="hero-actions">
-            <Link className="button" to="/work">
-              View work
+            <Link className="button" to="/shop?category=LCD">
+              Ver LCD
             </Link>
-            <Link className="button button-ghost" to="/contact">
-              Start a project
+            <Link className="button button-ghost" to="/shop?category=Batteries">
+              Ver baterías
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="band">
-        <div className="shell split">
-          <h2>Selected work</h2>
-          <p className="muted">
-            Six sample projects live in <code>src/data/site.ts</code>. Edit that
-            file to change titles, categories, and summaries.
-          </p>
+      <section className="shell">
+        <div className="service-strip">
+          {services.map((item) => (
+            <Link key={item.title} className="service-card" to={item.href}>
+              <strong>{item.title}</strong>
+              <span>{item.body}</span>
+            </Link>
+          ))}
         </div>
       </section>
 
-      <section className="shell project-list">
-        {featured.map((project) => (
-          <article key={project.id} className="project-card">
-            <div className="project-media" aria-hidden="true" />
-            <div className="project-meta">
-              <span>{project.category}</span>
-              <span>{project.year}</span>
-            </div>
-            <h3>{project.title}</h3>
-            <p>{project.summary}</p>
-          </article>
-        ))}
+      <section className="shell">
+        <TrustBar />
       </section>
 
-      <section className="cta">
-        <div className="shell cta-inner">
-          <h2>Have something in mind?</h2>
-          <p>The contact page is wired as a front-end form only — no backend yet.</p>
-          <Link className="button" to="/contact">
-            Get in touch
-          </Link>
+      <section className="shell section">
+        <h2>Comprar por tipo</h2>
+        <div className="category-tiles">
+          {categories.map((category) => (
+            <Link key={category} className="category-tile" to={`/shop?category=${encodeURIComponent(category)}`}>
+              {categoryLabel[category]}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="shell section">
+        <div className="section-head">
+          <h2>Los más vendidos</h2>
+          <Link to="/shop">Ver todo</Link>
+        </div>
+        <div className="product-grid">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </section>
     </>

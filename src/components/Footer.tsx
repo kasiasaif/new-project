@@ -11,7 +11,7 @@ export function Footer() {
         </div>
 
         <nav aria-label="Footer">
-          <Link to="/">Home</Link>
+          <Link to="/">Inicio</Link>
           {navItems.map((item) => (
             <Link key={item.path} to={item.path}>
               {item.label}
@@ -21,7 +21,7 @@ export function Footer() {
 
         <div className="footer-contact">
           <a href={`mailto:${site.email}`}>{site.email}</a>
-          <p className="muted">Replace this skeleton with your own content.</p>
+          <p className="muted">Baterías y LCD para reparación de móviles. Más recambios más adelante.</p>
         </div>
       </div>
     </footer>
