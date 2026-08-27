@@ -4,16 +4,30 @@ Public shop: **https://tescgsm.es**
 
 Admin CRM is a separate project on **https://admin-tescgsm.es**.
 
-## Local
+## Branches
+
+- **staging** — work here. Run locally with `npm run dev` → http://localhost:5173
+- **production** — live site on tescgsm.es. GitHub Pages deploys only from this branch.
+
+To publish:
 
 ```bash
+git checkout production
+git merge staging
+git push
+```
+
+## Local (staging)
+
+```bash
+git checkout staging
 npm install
 npm run dev
 ```
 
 Open `http://localhost:5173`.
 
-For live MySQL products, also run `npm run dev` in `tescgsm-admin`. If that API is not running, the shop uses `public/products.json`.
+For live MySQL products, also run `npm run dev` in `tescgsm-admin` on the staging branch. If that API is not running, the shop uses `public/products.json`.
 
 ## Domain
 
