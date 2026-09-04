@@ -10,6 +10,7 @@
   --deal: #ffe14d;
   --sans: "Plus Jakarta Sans", "Segoe UI", sans-serif;
   --space: clamp(1.25rem, 3vw, 2.25rem);
+  --btn-radius: 999px;
   color-scheme: light;
 }
 
@@ -127,11 +128,29 @@ code {
   z-index: 12;
 }
 
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+.brand-mark {
+  width: 2.15rem;
+  height: 2.15rem;
+  flex-shrink: 0;
+  display: block;
+  border-radius: 0.55rem;
+}
+
 .wordmark {
   font-weight: 800;
-  font-size: 1.35rem;
+  font-size: 1.28rem;
   text-decoration: none;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
+  line-height: 1;
 }
 
 .search {
@@ -283,7 +302,7 @@ code {
   min-height: 2.7rem;
   padding: 0 1.1rem;
   border: 1px solid var(--ink);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   background: #fff;
   color: var(--ink);
   font: inherit;
@@ -337,7 +356,7 @@ code {
   align-items: center;
   min-height: 2.7rem;
   border: 1px solid var(--ink);
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   overflow: hidden;
   margin-top: auto;
 }
@@ -648,7 +667,7 @@ code {
 .chip {
   border: 1px solid var(--line);
   background: #fff;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   padding: 0.4rem 0.9rem;
   font: inherit;
   font-weight: 600;
@@ -727,7 +746,7 @@ code {
   height: 2rem;
   border: 1px solid var(--line);
   background: #fff;
-  border-radius: 999px;
+  border-radius: var(--btn-radius);
   font: inherit;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;

@@ -53,8 +53,9 @@ export function Header() {
           </span>
         </button>
 
-        <Link className="wordmark" to="/" onClick={closeMenu}>
-          {site.name}
+        <Link className="brand" to="/" onClick={closeMenu}>
+          <img className="brand-mark" src="/logo.svg" alt="" width={36} height={36} />
+          <span className="wordmark">{site.name}</span>
         </Link>
 
         <form className="search" role="search" onSubmit={onSearch}>

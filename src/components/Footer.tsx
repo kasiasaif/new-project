@@ -6,7 +6,10 @@ export function Footer() {
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div>
-          <p className="wordmark">{site.name}</p>
+          <p className="brand">
+            <img className="brand-mark" src="/logo.svg" alt="" width={36} height={36} />
+            <span className="wordmark">{site.name}</span>
+          </p>
           <p className="muted">{site.tagline} · {site.location}</p>
           <p className="muted">{site.url.replace('https://', '')}</p>
         </div>
