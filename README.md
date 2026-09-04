@@ -2,7 +2,7 @@
 
 Public shop: **https://tescgsm.es**
 
-Admin CRM is a separate project on **https://admin-tescgsm.es**.
+Admin CRM is a separate project on **https://admin.tescgsm.es**.
 
 ## Branches
 
@@ -31,7 +31,7 @@ For live MySQL products, also run `npm run dev` in `tescgsm-admin` on the stagin
 
 ## Domain
 
-Point `tescgsm.es` at this shop. Point `admin-tescgsm.es` at the admin project.
+Point `tescgsm.es` at this shop. Point `admin.tescgsm.es` at the admin project.
 
 ## MySQL Workbench
 
