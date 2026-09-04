@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { type Banner } from '../data/banner'
 
@@ -22,11 +22,11 @@ export function PromoBanner({ banners }: { banners: Banner[] }) {
     setIndex((next + total) % total)
   }
 
-  function onTouchStart(event: { changedTouches: TouchList }) {
+  function onTouchStart(event: TouchEvent<HTMLElement>) {
     touchStartX.current = event.changedTouches[0]?.clientX ?? null
   }
 
-  function onTouchEnd(event: { changedTouches: TouchList }) {
+  function onTouchEnd(event: TouchEvent<HTMLElement>) {
     if (touchStartX.current == null) return
     const endX = event.changedTouches[0]?.clientX ?? touchStartX.current
     const delta = endX - touchStartX.current
