@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react'
 import { type Product } from '../data/site'
+import { isActive } from './active'
+import { loadCategories } from './categories'
+
+function isNumericId(value: unknown): boolean {
+  const id = Number(value)
+  return Number.isInteger(id) && id > 0
+}
 
 function withImageUrl(product: Product): Product {
   const base = import.meta.env.BASE_URL
   return {
     ...product,
+    id: Number(product.id),
+    category: Number(product.category),
     image: `${base}${product.image.replace(/^\//, '')}`,
+    active: isActive(product.active),
   }
 }
 
@@ -21,12 +31,20 @@ export async function loadProducts(): Promise<Product[]> {
   const fallback = `${import.meta.env.BASE_URL}products.json`
   if (import.meta.env.DEV) {
     try {
-      return (await readJson('/api/products')).map(withImageUrl)
+      return (await readJson('/api/products')).map(withImageUrl).filter((item) => isNumericId(item.id) && isNumericId(item.category))
     } catch {
-      return (await readJson(fallback)).map(withImageUrl)
+      return (await readJson(fallback)).map(withImageUrl).filter((item) => isNumericId(item.id) && isNumericId(item.category))
     }
   }
-  return (await readJson(fallback)).map(withImageUrl)
+  return (await readJson(fallback)).map(withImageUrl).filter((item) => isNumericId(item.id) && isNumericId(item.category))
+}
+
+export async function loadLiveProducts(): Promise<Product[]> {
+  const [products, categories] = await Promise.all([loadProducts(), loadCategories()])
+  const liveCategoryIds = new Set(
+    categories.filter((item) => isActive(item.active)).map((item) => item.id),
+  )
+  return products.filter((item) => isActive(item.active) && liveCategoryIds.has(item.category))
 }
 
 export function useProducts() {
@@ -35,7 +53,7 @@ export function useProducts() {
 
   useEffect(() => {
     let cancelled = false
-    loadProducts()
+    loadLiveProducts()
       .then((items) => {
         if (cancelled) return
         setProducts(items)

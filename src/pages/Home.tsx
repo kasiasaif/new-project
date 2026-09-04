@@ -2,13 +2,16 @@ import { Link } from 'react-router-dom'
 import { ProductCard } from '../components/ProductCard'
 import { PromoBanner } from '../components/PromoBanner'
 import { TrustBar } from '../components/TrustBar'
-import { categories, categoryLabel, services, site } from '../data/site'
+import { services, site } from '../data/site'
 import { useBanners } from '../lib/banners'
+import { useCategories } from '../lib/categories'
 import { useProducts } from '../lib/products'
 
 export function Home() {
   const { products, status } = useProducts()
   const { banners } = useBanners()
+  const { categories } = useCategories()
+  const [first, second] = categories
 
   return (
     <>
@@ -24,12 +27,20 @@ export function Home() {
               and LCD — other parts can come later.
             </p>
             <div className="hero-actions">
-              <Link className="button" to="/shop?category=LCD">
-                Shop LCD
-              </Link>
-              <Link className="button button-ghost" to="/shop?category=Batteries">
-                Shop batteries
-              </Link>
+              {first ? (
+                <Link className="button" to={`/shop?category=${encodeURIComponent(first.id)}`}>
+                  Shop {first.name}
+                </Link>
+              ) : (
+                <Link className="button" to="/shop">
+                  Shop parts
+                </Link>
+              )}
+              {second ? (
+                <Link className="button button-ghost" to={`/shop?category=${encodeURIComponent(second.id)}`}>
+                  Shop {second.name}
+                </Link>
+              ) : null}
             </div>
           </div>
         </section>
@@ -54,8 +65,8 @@ export function Home() {
         <h2>Shop by part</h2>
         <div className="category-tiles">
           {categories.map((category) => (
-            <Link key={category} className="category-tile" to={`/shop?category=${encodeURIComponent(category)}`}>
-              {categoryLabel[category]}
+            <Link key={category.id} className="category-tile" to={`/shop?category=${encodeURIComponent(category.id)}`}>
+              {category.name}
             </Link>
           ))}
         </div>

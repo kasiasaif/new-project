@@ -15,9 +15,11 @@ export const navItems = [
 
 export {
   categories,
-  categoryLabel,
+  labelForCategory,
+  seedCategories,
   type Brand,
   type Category,
+  type CategoryRecord,
   type Product,
 } from './catalog.ts'
 

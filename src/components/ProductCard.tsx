@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { formatPrice, productDetail, type Product } from '../data/site'
+import { formatPrice, labelForCategory, productDetail, type Product } from '../data/site'
+import { useCategories } from '../lib/categories'
 
 type ProductCardProps = {
   product: Product
@@ -8,12 +9,13 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { add, setQuantity, lines } = useCart()
+  const { categories } = useCategories()
   const quantity = lines.find((line) => line.product.id === product.id)?.quantity ?? 0
   const saved = (product.previousPrice ?? product.price) - product.price
 
   return (
     <article className="product-card">
-      <span className="part-tag">{product.category === 'Batteries' ? 'Batteries' : 'LCD'}</span>
+      <span className="part-tag">{labelForCategory(product.category, categories)}</span>
       {saved > 0 ? <span className="deal-tag">Deal</span> : null}
 
       <Link className="product-media" to="/shop">

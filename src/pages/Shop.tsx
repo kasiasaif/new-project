@@ -1,36 +1,37 @@
 import { useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ProductCard } from '../components/ProductCard'
-import { categories, categoryLabel, type Category } from '../data/site'
+import { labelForCategory } from '../data/site'
+import { useCategories } from '../lib/categories'
 import { useProducts } from '../lib/products'
-
-const filters: Array<'All' | Category> = ['All', ...categories]
 
 export function Shop() {
   const { products, status } = useProducts()
+  const { categories } = useCategories()
   const [params, setParams] = useSearchParams()
   const query = params.get('q') ?? ''
-  const categoryParam = params.get('category')
-  const active: 'All' | Category =
-    categoryParam && categories.includes(categoryParam as Category)
-      ? (categoryParam as Category)
+  const categoryParam = Number(params.get('category'))
+  const active: 'All' | number =
+    Number.isInteger(categoryParam) && categories.some((item) => item.id === categoryParam)
+      ? categoryParam
       : 'All'
+  const filters: Array<'All' | number> = ['All', ...categories.map((item) => item.id)]
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase()
     return products.filter((product) => {
       const matchesCategory = active === 'All' || product.category === active
       const haystack =
-        `${product.name} ${product.model} ${product.spec} ${product.brand} ${categoryLabel[product.category]}`.toLowerCase()
+        `${product.name} ${product.model} ${product.spec} ${product.brand} ${labelForCategory(product.category, categories)}`.toLowerCase()
       const matchesQuery = !needle || haystack.includes(needle)
       return matchesCategory && matchesQuery
     })
-  }, [active, products, query])
+  }, [active, categories, products, query])
 
-  function setCategory(next: 'All' | Category) {
+  function setCategory(next: 'All' | number) {
     const nextParams = new URLSearchParams(params)
     if (next === 'All') nextParams.delete('category')
-    else nextParams.set('category', next)
+    else nextParams.set('category', String(next))
     setParams(nextParams)
   }
 
@@ -38,9 +39,9 @@ export function Shop() {
     <section className="page">
       <div className="shell">
         <p className="eyebrow">Shop</p>
-        <h1>{query ? `Results for “${query}”` : 'Batteries and LCD'}</h1>
+        <h1>{query ? `Results for “${query}”` : 'Parts'}</h1>
         <p className="lede">
-          Two categories for now. Search a model such as iPhone 11 or Galaxy A15.
+          Search a model such as iPhone 11 or Galaxy A15.
         </p>
 
         <div className="filters" role="tablist" aria-label="Part type">
@@ -53,7 +54,7 @@ export function Shop() {
               className={active === item ? 'chip is-active' : 'chip'}
               onClick={() => setCategory(item)}
             >
-              {categoryLabel[item]}
+              {item === 'All' ? 'All' : labelForCategory(item, categories)}
             </button>
           ))}
         </div>

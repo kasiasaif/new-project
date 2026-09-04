@@ -25,10 +25,10 @@ async function readJson(request: IncomingMessage): Promise<Record<string, unknow
 }
 
 function asProduct(body: Record<string, unknown>): Product | null {
-  const id = String(body.id ?? '').trim()
+  const id = Number(body.id)
   const name = String(body.name ?? '').trim()
-  const category = String(body.category ?? '')
-  const brand = String(body.brand ?? '')
+  const category = Number(body.category)
+  const brand = String(body.brand ?? '').trim()
   const model = String(body.model ?? '').trim()
   const spec = String(body.spec ?? '').trim()
   const image = String(body.image ?? '').trim()
@@ -36,14 +36,13 @@ function asProduct(body: Record<string, unknown>): Product | null {
   const previous = body.previousPrice === '' || body.previousPrice == null
     ? undefined
     : Number(body.previousPrice)
+  const active = body.active == null ? true : Boolean(body.active)
 
-  if (!id || !name || !model || !spec || !image || !Number.isFinite(price)) return null
-  if (category !== 'Batteries' && category !== 'LCD') return null
-  if (brand !== 'Apple' && brand !== 'Samsung') return null
+  if (!name || !Number.isInteger(category) || category < 1 || !brand || !model || !spec || !image || !Number.isFinite(price)) return null
   if (previous !== undefined && !Number.isFinite(previous)) return null
 
   return {
-    id,
+    id: Number.isInteger(id) && id > 0 ? id : 0,
     name,
     category,
     brand,
@@ -52,6 +51,7 @@ function asProduct(body: Record<string, unknown>): Product | null {
     price,
     previousPrice: previous,
     image: image.replace(/^\//, ''),
+    active,
   }
 }
 
@@ -112,8 +112,8 @@ async function handle(request: IncomingMessage, response: ServerResponse) {
         send(response, 400, { error: 'The part is missing required fields.' })
         return
       }
-      await upsertProduct(product)
-      send(response, 200, product)
+      const saved = await upsertProduct(product)
+      send(response, 200, saved)
       return
     }
 
@@ -122,8 +122,8 @@ async function handle(request: IncomingMessage, response: ServerResponse) {
         unauthorized(response)
         return
       }
-      const id = decodeURIComponent(url.pathname.slice('/api/products/'.length))
-      if (!id) {
+      const id = Number(decodeURIComponent(url.pathname.slice('/api/products/'.length)))
+      if (!Number.isInteger(id) || id < 1) {
         send(response, 400, { error: 'Missing id.' })
         return
       }

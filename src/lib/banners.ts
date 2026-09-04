@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { type Banner } from '../data/banner'
 
-function withImageUrl(banner: Banner): Banner {
+function withImageUrl(banner: Banner): Banner | null {
+  const id = Number(banner.id)
+  if (!Number.isInteger(id) || id < 1) return null
   const base = import.meta.env.BASE_URL
   return {
     ...banner,
+    id,
     image: `${base}${banner.image.replace(/^\//, '')}`,
   }
 }
@@ -19,12 +22,12 @@ export async function loadBanners(): Promise<Banner[]> {
   const fallback = `${import.meta.env.BASE_URL}banners.json`
   if (import.meta.env.DEV) {
     try {
-      return (await readJson('/api/banners')).map(withImageUrl)
+      return (await readJson('/api/banners')).map(withImageUrl).filter((item): item is Banner => item !== null)
     } catch {
-      return (await readJson(fallback)).map(withImageUrl)
+      return (await readJson(fallback)).map(withImageUrl).filter((item): item is Banner => item !== null)
     }
   }
-  return (await readJson(fallback)).map(withImageUrl)
+  return (await readJson(fallback)).map(withImageUrl).filter((item): item is Banner => item !== null)
 }
 
 export function useBanners() {
@@ -36,7 +39,7 @@ export function useBanners() {
     loadBanners()
       .then((items) => {
         if (cancelled) return
-        setBanners(items.filter((item) => item.active).sort((a, b) => a.sortOrder - b.sortOrder))
+        setBanners(items.filter((item) => item.active === true).sort((a, b) => a.sortOrder - b.sortOrder))
         setStatus('ready')
       })
       .catch(() => {

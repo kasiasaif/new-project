@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
 import { type Product } from '../data/site'
+import { isActive } from '../lib/active'
 
 export type CartLine = {
   product: Product
@@ -11,8 +12,8 @@ type CartContextValue = {
   count: number
   total: number
   add: (product: Product) => void
-  remove: (id: string) => void
-  setQuantity: (id: string, quantity: number) => void
+  remove: (id: number) => void
+  setQuantity: (id: number, quantity: number) => void
   clear: () => void
 }
 
@@ -30,6 +31,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       count,
       total,
       add(product: Product) {
+        if (!isActive(product.active)) return
         setLines((current) => {
           const existing = current.find((line) => line.product.id === product.id)
           if (existing) {
@@ -42,10 +44,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
           return [...current, { product, quantity: 1 }]
         })
       },
-      remove(id: string) {
+      remove(id: number) {
         setLines((current) => current.filter((line) => line.product.id !== id))
       },
-      setQuantity(id: string, quantity: number) {
+      setQuantity(id: number, quantity: number) {
         setLines((current) => {
           if (quantity < 1) {
             return current.filter((line) => line.product.id !== id)

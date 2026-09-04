@@ -1,5 +1,5 @@
 export type Banner = {
-  id: string
+  id: number
   title: string
   body: string
   ctaLabel: string
@@ -11,7 +11,7 @@ export type Banner = {
 
 export const seedBanners: Banner[] = [
   {
-    id: 'home-hero',
+    id: 1,
     title: 'Batteries and LCD for phone repair',
     body: 'Parts for workshops in Spain. Shop by model and get the screen or battery you need.',
     ctaLabel: 'Shop now',
@@ -21,21 +21,21 @@ export const seedBanners: Banner[] = [
     sortOrder: 0,
   },
   {
-    id: 'home-lcd',
+    id: 2,
     title: 'LCD screens in stock',
     body: 'Replacement displays matched to the model. Built for repair counters, not retail phones.',
     ctaLabel: 'Shop LCD',
-    ctaHref: '/shop?category=LCD',
+    ctaHref: '/shop?category=2',
     image: 'images/banner-lcd.png',
     active: true,
     sortOrder: 1,
   },
   {
-    id: 'home-batteries',
+    id: 3,
     title: 'Batteries ready to fit',
     body: 'Capacity-matched packs for Apple and Samsung. Order the part, fit the phone.',
     ctaLabel: 'Shop batteries',
-    ctaHref: '/shop?category=Batteries',
+    ctaHref: '/shop?category=1',
     image: 'images/banner-batteries.png',
     active: true,
     sortOrder: 2,

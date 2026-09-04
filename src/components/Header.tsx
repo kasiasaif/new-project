@@ -1,12 +1,14 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { categories, categoryLabel, navItems, site } from '../data/site'
+import { navItems, site } from '../data/site'
+import { useCategories } from '../lib/categories'
 
 export function Header() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const { count } = useCart()
+  const { categories } = useCategories()
   const navigate = useNavigate()
 
   function closeMenu() {
@@ -119,11 +121,11 @@ export function Header() {
           <div className="mobile-cats">
             {categories.map((category) => (
               <Link
-                key={category}
-                to={`/shop?category=${encodeURIComponent(category)}`}
+                key={category.id}
+                to={`/shop?category=${encodeURIComponent(category.id)}`}
                 onClick={closeMenu}
               >
-                {categoryLabel[category]}
+                {category.name}
               </Link>
             ))}
           </div>
@@ -133,8 +135,8 @@ export function Header() {
       <div className="category-bar">
         <div className="shell category-row">
           {categories.map((category) => (
-            <Link key={category} to={`/shop?category=${encodeURIComponent(category)}`} onClick={closeMenu}>
-              {categoryLabel[category]}
+            <Link key={category.id} to={`/shop?category=${encodeURIComponent(category.id)}`} onClick={closeMenu}>
+              {category.name}
             </Link>
           ))}
         </div>
