@@ -123,7 +123,7 @@ code {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 1rem;
-  min-height: 4.25rem;
+  min-height: 5.25rem;
   position: relative;
   z-index: 12;
 }
@@ -138,11 +138,12 @@ code {
 }
 
 .brand-mark {
-  width: 2.15rem;
-  height: 2.15rem;
+  width: 4rem;
+  height: 4rem;
   flex-shrink: 0;
   display: block;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .wordmark {
