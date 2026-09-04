@@ -1,32 +1,39 @@
 import { Link } from 'react-router-dom'
 import { ProductCard } from '../components/ProductCard'
+import { PromoBanner } from '../components/PromoBanner'
 import { TrustBar } from '../components/TrustBar'
 import { categories, categoryLabel, services, site } from '../data/site'
+import { useBanners } from '../lib/banners'
 import { useProducts } from '../lib/products'
 
 export function Home() {
   const { products, status } = useProducts()
+  const { banners } = useBanners()
 
   return (
     <>
-      <section className="hero">
-        <div className="shell">
-          <p className="eyebrow">{site.tagline}</p>
-          <h1>Batteries and LCD screens for phone repair.</h1>
-          <p className="lede">
-            tescgsm is a parts counter in Spain. For now we only stock batteries
-            and LCD — other parts can come later.
-          </p>
-          <div className="hero-actions">
-            <Link className="button" to="/shop?category=LCD">
-              Shop LCD
-            </Link>
-            <Link className="button button-ghost" to="/shop?category=Batteries">
-              Shop batteries
-            </Link>
+      {banners.length > 0 ? (
+        <PromoBanner banners={banners} />
+      ) : (
+        <section className="hero">
+          <div className="shell">
+            <p className="eyebrow">{site.tagline}</p>
+            <h1>Batteries and LCD screens for phone repair.</h1>
+            <p className="lede">
+              tescgsm is a parts counter in Spain. For now we only stock batteries
+              and LCD — other parts can come later.
+            </p>
+            <div className="hero-actions">
+              <Link className="button" to="/shop?category=LCD">
+                Shop LCD
+              </Link>
+              <Link className="button button-ghost" to="/shop?category=Batteries">
+                Shop batteries
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="shell">
         <div className="service-strip">

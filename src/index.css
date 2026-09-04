@@ -142,7 +142,7 @@ code {
   height: 2.15rem;
   flex-shrink: 0;
   display: block;
-  border-radius: 0.55rem;
+  border-radius: 50%;
 }
 
 .wordmark {
@@ -293,6 +293,114 @@ code {
   flex-wrap: wrap;
   gap: 0.7rem;
   margin: 1.4rem 0;
+}
+
+.promo-banner {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(16.5rem, 26vw, 20.5rem);
+  background-color: #111;
+  color: #fff;
+  margin-bottom: var(--space);
+  touch-action: pan-y;
+}
+
+.promo-track {
+  display: flex;
+  height: 100%;
+  min-height: inherit;
+  transition: transform 0.55s ease;
+}
+
+.promo-slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-height: inherit;
+}
+
+.promo-banner-media {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.promo-banner-media img {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  height: 130%;
+  width: auto;
+  max-width: none;
+  transform: translateY(-50%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 28%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 28%);
+}
+
+.promo-banner-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: inherit;
+  padding: 2.4rem 0 2.8rem;
+}
+
+.promo-banner .eyebrow,
+.promo-banner .lede {
+  color: #e5e7eb;
+}
+
+.promo-banner h1 {
+  color: #fff;
+  max-width: 16ch;
+  font-size: clamp(1.85rem, 5vw, 3.3rem);
+}
+
+.promo-banner .button {
+  align-self: flex-start;
+  margin-top: 0.55rem;
+  background: #fff;
+  color: #111;
+  border-color: #fff;
+}
+
+.promo-banner .button:hover,
+.promo-banner .button:focus-visible {
+  background: transparent;
+  color: #fff;
+  box-shadow: none;
+}
+
+.promo-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 1.1rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.45rem;
+  transform: translateX(-50%);
+}
+
+.promo-dots button {
+  width: 0.55rem;
+  height: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 45%);
+  cursor: pointer;
+}
+
+.promo-dots button.is-active {
+  width: 1.45rem;
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-track {
+    transition: none;
+  }
 }
 
 .button {
@@ -517,10 +625,10 @@ code {
 
 .product-media {
   display: block;
-  height: 180px;
-  border-radius: 10px;
+  height: 210px;
+  border-radius: 12px;
   text-decoration: none;
-  background: #f7f7f7;
+  background: #f5f5f7;
   overflow: hidden;
 }
 
@@ -820,6 +928,47 @@ code {
 }
 
 @media (max-width: 720px) {
+  .promo-banner {
+    min-height: 11rem;
+    height: 11rem;
+  }
+
+  .promo-banner-media img {
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    transform: none;
+    object-fit: cover;
+    object-position: center right;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
+  }
+
+  .promo-banner-copy {
+    padding: 0.75rem 0 1.15rem;
+    justify-content: center;
+  }
+
+  .promo-banner .eyebrow,
+  .promo-banner .lede {
+    display: none;
+  }
+
+  .promo-banner h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .promo-banner .button {
+    min-height: 2.2rem;
+    margin-top: 0;
+  }
+
+  .promo-dots {
+    bottom: 0.45rem;
+  }
+
   .header-row {
     grid-template-columns: auto 1fr auto;
   }
